@@ -1,31 +1,35 @@
-import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Year;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Ｔｅｓｔ {
-//    public static char[] reverse(char[] nums){
-//        int lo=0,hi=nums.length-1;
-//        while (lo<=hi){
-//            swap(nums,lo,hi);
-//            lo++;
-//            hi--;
-//        }
-//        return nums;
-//    }
-//    public static void swap(char[] nums,int i,int j){
-//        char temp=nums[i];
-//        nums[i]=nums[j];
-//        nums[j]=temp;
-//    }
+    public static void print(int num,Object obj){
+        System.out.println(String.format("{%d}-----(%s)",num,obj.toString()));
+    }
+    public static void testDateTime(){
+        Calendar cal=Calendar.getInstance();
+        LocalDateTime dt=LocalDateTime.now();
+        print(1,cal.get(Calendar.DATE));
+        print(2,cal.get(Calendar.HOUR));
+        print(3,dt.getHour());
+    }
+    public static void testDateFormat(){
+        SimpleDateFormat oldFormatter=new SimpleDateFormat("yyyy/MM/dd");
+        Date date1=new Date();
+        print(1,oldFormatter.format(date1));
+        DateTimeFormatter newFormatter=DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate date2=LocalDate.now();
+        print(2,date2.format(newFormatter));
+        LocalDateTime today=LocalDateTime.now();
+        print(3,today);
+        print(3,today.minusDays(1));
+    }
     public static void main(String[] args) {
-//        String s="helloword";
-//        System.out.println(reverse(s.toCharArray()));
-        String s1=new String("xyz");
-        String s2="xyz";
-        String s3="xyz";
-        StringBuilder s=new StringBuilder(s1);
-        Integer a=Integer.parseInt("11");
-        Integer b=Integer.valueOf("123");
-
-        System.out.println(s.reverse());
-
+        //testDateTime();
+        testDateFormat();
     }
 }
