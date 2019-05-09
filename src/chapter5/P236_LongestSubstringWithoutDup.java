@@ -1,6 +1,8 @@
 package chapter5;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class P236_LongestSubstringWithoutDup {
     //动态规划
@@ -50,11 +52,58 @@ public class P236_LongestSubstringWithoutDup {
         return res;
     }
 
+    //
+    public static int longestSubstringWithoutDup3(String str){
+        int left=-1,res=0,n=str.length();
+        Map<Character,Integer> m=new HashMap<Character, Integer>();
+        for(int i=0;i<n;i++){
+            m.put(str.charAt(i),i);
+        }
+        for(int i=0;i<n;i++){
+            if(m.containsKey(str.charAt(i))&&(m.get(str.charAt(i))>left)){
+                left=m.get(str.charAt(i));
+            }
+            res=Math.max(res,i-left);
+        }
+        return res;
+    }
+    //
+    public static int longestSubstringWithoutDup4(String str){
+        int left=-1,res=0,n=str.length();
+        int[] m=new int[256];
+        for(int i=0;i<n;i++){
+            m[str.charAt(i)]=i;
+        }
+        for(int i=0;i<n;i++){
+            if((m[str.charAt(i)]>left)){
+                left=m[str.charAt(i)];
+            }
+            res=Math.max(res,i-left);
+        }
+        return res;
+    }
+
+    //
+    public static int longestSubstringWithoutDup5(String str){
+        int left=-1,res=0;
+        int[] m=new int[26];
+        for(int i=0;i<str.length();i++){
+            left=Math.max(left,m[str.charAt(i)-'a']);
+            m[str.charAt(i)-'a']=i;
+            res=Math.max(res,i-left);
+        }
+        return res;
+    }
+
     public static void main(String[] args){
-        System.out.println(longestSubstringWithoutDup("arabcacfr"));//4
-        System.out.println(longestSubstringWithoutDup("abcdefaaa"));//6
-        System.out.println(longestSubstringWithoutDup2("arabcacfr"));//4
-        System.out.println(longestSubstringWithoutDup2("abcdefaaa"));//6
+//        System.out.println(longestSubstringWithoutDup("arabcacfr"));//4
+//        System.out.println(longestSubstringWithoutDup("abcdefaaa"));//6
+//        System.out.println(longestSubstringWithoutDup2("arabcacfr"));//4
+//        System.out.println(longestSubstringWithoutDup2("abcdefaaa"));//6
+        System.out.println(longestSubstringWithoutDup5("arabcacfr"));//4
+        System.out.println(longestSubstringWithoutDup5("abcdefaaa"));//6
+
+
 
     }
 }
