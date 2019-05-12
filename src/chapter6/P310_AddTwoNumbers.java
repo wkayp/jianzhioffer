@@ -13,20 +13,14 @@ public class P310_AddTwoNumbers {
 
         return num1;
     }
-    public static int exch(int num1,int num2){
-        num1=num1+num2;
-        num2=num1-num2;
-        num1=num1-num2;
-        return num1;
+    public static void exch(int[] nums,int i,int j){
+        nums[i]=nums[i]^nums[j];
+        nums[j]=nums[i]^nums[j];
+        nums[i]=nums[i]^nums[j];
     }
     public static void main(String[] args){
         System.out.println(add(3,5)); //8
         System.out.println(add(3,-5)); //-2
         System.out.println(add(0,1));  //1
-        int a=3,b=5;
-//        System.out.println("a= "+a+",b= "+b);
-//        exch(a,b);
-//        System.out.println("a= "+a+",b= "+b);
-        System.out.println(exch(a,b));
     }
 }
