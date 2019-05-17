@@ -7,6 +7,12 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Ｔｅｓｔ {
+    public static class Node{
+        int val;
+        int height;
+        Node left;
+        Node right;
+    }
     public static void print(int num,Object obj){
         System.out.println(String.format("{%d}-----(%s)",num,obj.toString()));
     }
@@ -31,5 +37,12 @@ public class Ｔｅｓｔ {
     public static void main(String[] args) {
         //testDateTime();
         testDateFormat();
+        Node K0=null,K1=null,K2=null;
+
+        K2=K0.right;
+        K0.right=K2.left;
+        K2.left=K0;
+
+
     }
 }

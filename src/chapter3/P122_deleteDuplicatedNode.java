@@ -3,19 +3,27 @@ package chapter3;
 import chapter2.ListNode;
 
 public class P122_deleteDuplicatedNode {
-    public static ListNode<Integer> deleteDuplication(ListNode<Integer> head){
+    public static class ListNode{
+        int val;
+        ListNode next;
+        public ListNode(int val){
+            this.val=val;
+            this.next=null;
+        }
+    }
+    public static ListNode deleteDuplication(ListNode head){
         if(head==null||head.next==null)
             return head;
-        ListNode<Integer> pre = null;
-        ListNode<Integer> cur = head;
-        ListNode<Integer> post = head.next;
+        ListNode pre = null;
+        ListNode cur = head;
+        ListNode post = head.next;
         boolean needDelete = false;
         while (post!=null){
-            if(cur.val.equals(post.val)){
+            if(cur.val==post.val){
                 needDelete = true;
                 post=post.next;
             }
-            else if(needDelete && !cur.val.equals(post.val)){//删除cur-post之间部分，考虑是否头节点被删除。
+            else if(needDelete && cur.val!=post.val){//删除cur-post之间部分，考虑是否头节点被删除。
                 if(pre==null)//注意点1：所有特殊情况都出现在pre指针上，需要针对pre分情况讨论
                     head = post;
                 else
@@ -32,19 +40,30 @@ public class P122_deleteDuplicatedNode {
         }
         if(needDelete && pre!=null)//尾部删除操作，尾部有重复的数字，例如112333
             pre.next = null;
-        else if(needDelete && pre==null)
+        else if(needDelete && pre==null)//全部重复
             head = null;
         return head;
     }
+    public static void printNode(ListNode node){
+        if(node==null)
+            System.out.println("no node!");
+        ListNode cur=node;
+        while (cur.next!=null){
+            System.out.print(cur.val+"->");
+            cur=cur.next;
+        }
+        System.out.print(cur.val);
+        System.out.println();
+    }
     public static void main(String[] args){
-        ListNode<Integer> head = new ListNode<>(1);
-        head.next= new ListNode<>(1);
-        head.next.next = new ListNode<>(2);
-        head.next.next.next = new ListNode<>(2);
-        head.next.next.next.next = new ListNode<>(2);
-        head.next.next.next.next.next = new ListNode<>(3);
-        System.out.println(head);
+        ListNode head = new ListNode(1);
+        head.next= new ListNode(1);
+        head.next.next = new ListNode(2);
+        head.next.next.next = new ListNode(2);
+        head.next.next.next.next = new ListNode(2);
+        head.next.next.next.next.next = new ListNode(3);
+        printNode(head);
         head = deleteDuplication(head);
-        System.out.println(head);
+        printNode(head);
     }
 }

@@ -20,19 +20,21 @@ public class P142_ReverseList {
         return;
     }
     public static ListNode reverseList(ListNode head){
-        ListNode newhead=null;
-        while (head!=null){
-            ListNode temp=head.next;
-            head.next=newhead;
-            newhead=head;
-            head=temp;
+        if(head==null||head.next==null) return head;
+        ListNode pre=null,cur=head;
+        while (cur!=null){
+            ListNode post= cur.next;
+            cur.next=pre;
+            pre=cur;
+            cur=post;
         }
-        return newhead;
+        return pre;
     }
     public static void main(String[] args){
         ListNode l1=new ListNode(1);
         l1.next=new ListNode(2);
         l1.next.next=new ListNode(3);
+
 
         printListNode(l1);//1 2 3
         printListNode(reverseList(l1));//3 2 1

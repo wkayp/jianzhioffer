@@ -1,28 +1,36 @@
 package chapter5;
 
-import chapter2.ListNode;
-
 public class P253_FindFirstCommonNode{
+    public static class ListNode{
+        int val;
+        ListNode next;
+        public ListNode(int val){
+            this.val=val;
+            this.next=null;
+        }
+    }
     //解法一：
     public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         if (headA == null || headB == null) return null;
-        int lenA = getLength(headA), lenB = getLength(headB);
+        ListNode cur1=headA,cur2=headB;
+        int lenA = getLength(cur1), lenB = getLength(cur2);
         if (lenA > lenB) {
-            for (int i = 0; i < lenA - lenB; ++i) headA = headA.next;
+            for (int i = 0; i < lenA - lenB; ++i) cur1 = cur1.next;
         } else {
-            for (int i = 0; i < lenB - lenA; ++i) headB = headB.next;
+            for (int i = 0; i < lenB - lenA; ++i) cur2 = cur2.next;
         }
-        while (headA != null && headB != null && headA != headB) {
-            headA = headA.next;
-            headB = headB.next;
+        while (cur1 != null && cur2 != null && cur1 != cur2) {
+            cur1 = cur1.next;
+            cur2 = cur2.next;
         }
-        return (headA != null && headB != null) ? headA : null;//注意点1：考虑两个链表没有公共节点的情况
+        return (cur1 != null && cur2 != null) ? cur1 : null;//注意点1：考虑两个链表没有公共节点的情况
     }
     public static int getLength(ListNode head) {
         int cnt = 0;
-        while (head != null) {
+        ListNode cur=head;
+        while (cur != null) {
             ++cnt;
-            head = head.next;
+            cur = cur.next;
         }
         return cnt;
     }
@@ -41,22 +49,22 @@ public class P253_FindFirstCommonNode{
     public static void main(String[] args){
         // 1->2->3->6->7
         //    4->5↗
-        ListNode<Integer> node1 = new ListNode<>(1);
-        ListNode<Integer> node2 = new ListNode<>(2);
-        ListNode<Integer> node3 = new ListNode<>(3);
-        ListNode<Integer> node4 = new ListNode<>(4);
-        ListNode<Integer> node5 = new ListNode<>(5);
-        ListNode<Integer> node6 = new ListNode<>(6);
-        ListNode<Integer> node7 = new ListNode<>(7);
+        ListNode node1 = new ListNode(1);
+        ListNode node2 = new ListNode(2);
+        ListNode node3 = new ListNode(3);
+        ListNode node4 = new ListNode(4);
+        ListNode node5 = new ListNode(5);
+        ListNode node6 = new ListNode(6);
+        ListNode node7 = new ListNode(7);
         node1.next = node2;
         node2.next = node3;
         node3.next = node6;
         node4.next = node5;
         node5.next = node6;
         node6.next = node7;
-        ListNode<Integer> commonNode = getIntersectionNode(node1,node4);
+        ListNode commonNode = getIntersectionNode(node1,node4);
         System.out.println(commonNode.val);
-        ListNode<Integer> commonNode2 = getIntersectionNode2(node1,node4);
+        ListNode commonNode2 = getIntersectionNode2(node1,node4);
         System.out.println(commonNode2.val);
     }
 }
